@@ -19,7 +19,12 @@
     "object",
     "paths",
     "pathify",
-    "flatten-object"
+    "flatten-object",
+    "flatten-paths",
+    "flatten-deep-object",
+    "flatten-nested-props",
+    "pathify-props",
+    "get-flat-object"
   ],
   "author": "Luca Ban - Mesqueeb",
   "license": "MIT",
