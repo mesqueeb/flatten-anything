@@ -17,7 +17,9 @@
   "keywords": [
     "flatten",
     "object",
-    "paths"
+    "paths",
+    "pathify",
+    "flatten-object"
   ],
   "author": "Luca Ban - Mesqueeb",
   "license": "MIT",
