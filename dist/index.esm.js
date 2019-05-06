@@ -1,4 +1,4 @@
-import { isPlainObject } from 'is-what';
+import { isArray, isPlainObject } from 'is-what';
 
 function retrievePaths(object, path, result) {
     if (!isPlainObject(object) ||
@@ -19,15 +19,43 @@ function retrievePaths(object, path, result) {
     }, {});
 }
 /**
- * Flattens an object from {a: {b: {c: 'd'}}} to {'a.b.c': 'd'}
+ * Flattens an object from `{a: {b: {c: 'd'}}}` to `{'a.b.c': 'd'}`
  *
  * @export
  * @param {object} object the object to flatten
  * @returns {AnyObject} the flattened object
  */
-function index (object) {
+function flattenObject(object) {
     var result = {};
     return retrievePaths(object, null, result);
 }
+/**
+ * Flattens an array from `[1, ['a', ['z']], 2]` to `[1, 'a', 'z', 2]`
+ *
+ * @export
+ * @param {any[]} array the array to flatten
+ * @returns {any[]} the flattened array
+ */
+function flattenArray(array) {
+    return array.reduce(function (carry, item) {
+        return isArray(item)
+            ? carry.concat(flattenArray(item)) : carry.concat([item]);
+    }, []);
+}
+/**
+ * Flattens an object or array.
+ * Object example: `{a: {b: {c: 'd'}}}` to `{'a.b.c': 'd'}`
+ * Array example: `[1, ['a', ['z']], 2]` to `[1, 'a', 'z', 2]`
+ *
+ * @export
+ * @param {(object | any[])} objectOrArray the payload to flatten
+ * @returns {(AnyObject | any[])} the flattened result
+ */
+function index (objectOrArray) {
+    return isArray(objectOrArray)
+        ? flattenArray(objectOrArray)
+        : flattenObject(objectOrArray);
+}
 
 export default index;
+export { flattenArray, flattenObject };

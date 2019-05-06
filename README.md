@@ -8,7 +8,7 @@ Flatten objects and replace nested props with 'prop.subprop'. A simple and small
 
 I was looking for:
 
-- A simple solution to flatten objects
+- A simple solution to flatten objects & arrays
 - Only flatten plain objects and **not special class instances**!
 
 This last one is crucial! So many libraries use custom classes that create objects with special prototypes, and such objects all break when trying to flatten them. So we gotta be careful!
@@ -29,16 +29,49 @@ Very usable for creating a payload for **Firebase Firestore** `update` function,
 
 ## Usage
 
+- If you pass an object, it will flatten all nested properties
+- If you pass an array, it will flatten all nested arrays
+
+### Flatten objects
+
 ```js
 import flatten from 'flatten-anything'
 
 const target = {name: 'Ho-oh', types: {fire: true, flying: true}}
+
 flatten(target)
 // returns {
 //   name: 'Ho-oh',
 //   types.fire: true,
 //   types.flying: true
 // }
+```
+
+> Please note that when you pass an object it will only flatten nested object props, and do nothing to arrays inside the object.
+
+### Flatten arrays
+
+```js
+import flatten from 'flatten-anything'
+
+const target = [1, 2, ['a', 'b', ['y', 'z']], 3]
+
+flatten(target)
+// returns [1, 2, 'a', 'b', 'y', 'z', 3]
+```
+
+> Please note that when you pass an array it will only flatten direct arrays, and do nothing to objects inside the array.
+
+### Treeshaking
+
+Importing `flatten` allows you to use it for both objects _and_ arrays.
+
+If you use webpack, rollup, etc. you can _import less code_ by specifying the exact flatten function you need:
+
+```js
+import { flattenObject } from 'flatten-anything'
+// or
+import { flattenArray } from 'flatten-anything'
 ```
 
 ### Example for Firestore
