@@ -2,7 +2,7 @@ import test from 'ava'
 import flatten from '../dist/index.cjs'
 import copy from 'copy-anything'
 
-test('flatten', t => {
+test('flatten objects', t => {
   let res, target, original
   target = {
     a: 1,
@@ -20,6 +20,26 @@ test('flatten', t => {
   })
   t.deepEqual(target, original)
 })
+
+test('flatten object limit', t => {
+  let res, target, original
+  target = {
+    a: 1,
+    b: {
+      c: {d: true},
+      e: 'yes'
+    }
+  }
+  original = copy(target)
+  res = flatten(target, 1)
+  t.deepEqual(res, {
+    'a': 1,
+    'b.c': {d: true},
+    'b.e': 'yes'
+  })
+  t.deepEqual(target, original)
+})
+
 test('flatten special objects', t => {
   let res, target, original
   target = {}

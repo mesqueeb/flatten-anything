@@ -6,9 +6,10 @@ declare type AnyObject = {
  *
  * @export
  * @param {object} object the object to flatten
+ * @param {untilDepth} [number] how deep you want to flatten. 1 for flattening only the first nested prop, and keeping deeper objects as is.
  * @returns {AnyObject} the flattened object
  */
-export declare function flattenObject(object: object): AnyObject;
+export declare function flattenObject(object: object, untilDepth?: number): AnyObject;
 /**
  * Flattens an array from `[1, ['a', ['z']], 2]` to `[1, 'a', 'z', 2]`
  *
@@ -24,7 +25,8 @@ export declare function flattenArray(array: any[]): any[];
  *
  * @export
  * @param {(object | any[])} objectOrArray the payload to flatten
+ * @param {untilDepth} [number] how deep you want to flatten. (currently only works with objects) 1 for flattening only the first nested prop, and keeping deeper objects as is.
  * @returns {(AnyObject | any[])} the flattened result
  */
-export default function (objectOrArray: object | any[]): AnyObject | any[];
+export default function (objectOrArray: object | any[], untilDepth?: number): AnyObject | any[];
 export {};

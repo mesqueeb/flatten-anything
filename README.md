@@ -62,6 +62,29 @@ flatten(target)
 
 > Please note that when you pass an array it will only flatten direct arrays, and do nothing to objects inside the array.
 
+### Limit the depth to flatten
+
+> currently only works with objects. Please open an issue if you want it to work with arrays as well!
+
+```js
+const target = {
+  name: 'Lugia',
+  appearence: {
+    // let's only flatten 1 level until here:
+    parts: { wings: true },
+    colors: { white: true, blue: true },
+  }
+}
+const untilDepth = 1
+
+flatten(target, untilDepth)
+// returns {
+//   name: 'Lugia',
+//   appearence.parts: { wings: true },
+//   appearence.colors: { white: true, blue: true },
+// }
+```
+
 ### Treeshaking
 
 Importing `flatten` allows you to use it for both objects _and_ arrays.

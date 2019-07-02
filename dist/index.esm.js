@@ -1,6 +1,6 @@
-import { isArray, isPlainObject } from 'is-what';
+import { isArray, isPlainObject, isNumber } from 'is-what';
 
-function retrievePaths(object, path, result) {
+function retrievePaths(object, path, result, untilDepth) {
     if (!isPlainObject(object) ||
         !Object.keys(object).length ||
         object.methodName === 'FieldValue.serverTimestamp') {
@@ -9,12 +9,17 @@ function retrievePaths(object, path, result) {
         result[path] = object;
         return result;
     }
+    if (isNumber(untilDepth))
+        untilDepth--;
     return Object.keys(object).reduce(function (carry, key) {
+        var _a;
         var pathUntilNow = (path)
             ? path + '.'
             : '';
         var newPath = pathUntilNow + key;
-        var extra = retrievePaths(object[key], newPath, result);
+        // last iteration or not
+        var extra = (untilDepth === -1)
+            ? (_a = {}, _a[newPath] = object[key], _a) : retrievePaths(object[key], newPath, result, untilDepth);
         return Object.assign(carry, extra);
     }, {});
 }
@@ -23,11 +28,12 @@ function retrievePaths(object, path, result) {
  *
  * @export
  * @param {object} object the object to flatten
+ * @param {untilDepth} [number] how deep you want to flatten. 1 for flattening only the first nested prop, and keeping deeper objects as is.
  * @returns {AnyObject} the flattened object
  */
-function flattenObject(object) {
+function flattenObject(object, untilDepth) {
     var result = {};
-    return retrievePaths(object, null, result);
+    return retrievePaths(object, null, result, untilDepth);
 }
 /**
  * Flattens an array from `[1, ['a', ['z']], 2]` to `[1, 'a', 'z', 2]`
@@ -49,12 +55,13 @@ function flattenArray(array) {
  *
  * @export
  * @param {(object | any[])} objectOrArray the payload to flatten
+ * @param {untilDepth} [number] how deep you want to flatten. (currently only works with objects) 1 for flattening only the first nested prop, and keeping deeper objects as is.
  * @returns {(AnyObject | any[])} the flattened result
  */
-function index (objectOrArray) {
+function index (objectOrArray, untilDepth) {
     return isArray(objectOrArray)
         ? flattenArray(objectOrArray)
-        : flattenObject(objectOrArray);
+        : flattenObject(objectOrArray, untilDepth);
 }
 
 export default index;
