@@ -1,6 +1,6 @@
 {
   "name": "flatten-anything",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Flatten objects and replace nested props with 'prop.subprop'. A simple and small integration",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -33,12 +33,12 @@
   },
   "homepage": "https://github.com/mesqueeb/flatten-anything#readme",
   "dependencies": {
-    "is-what": "^3.2.3"
+    "is-what": "^3.2.4"
   },
   "devDependencies": {
     "ava": "^1.4.1",
-    "copy-anything": "^1.2.3",
+    "copy-anything": "^1.2.4",
     "rollup-plugin-typescript2": "^0.21.2",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   }
 }
