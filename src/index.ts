@@ -55,6 +55,26 @@ export function flattenArray (array: any[]): any[] {
 }
 
 /**
+ * Flattens certain props of an object.
+ *
+ * @export
+ * @param {object} object the object to flatten Eg. `{a: {subA: 1}, b: {subB: 1}}`
+ * @param {string[]} [props=[]] the prop names you want to flatten. Eg. `['a']` will return `{'a.subA': 1, b: {subB: 1}}`
+ * @returns {AnyObject} the flattened object
+ */
+export function flattenObjectProps (object: object, props: string[] = []): AnyObject {
+  return Object.entries(object).reduce((carry, [key, value]) => {
+    if (props.includes(key)) {
+      const flatObject = flattenObject({[key]: value})
+      Object.assign(carry, flatObject)
+    } else {
+      carry[key] = value
+    }
+    return carry
+  }, {})
+}
+
+/**
  * Flattens an object or array.
  * Object example: `{a: {b: {c: 'd'}}}` to `{'a.b.c': 'd'}`
  * Array example: `[1, ['a', ['z']], 2]` to `[1, 'a', 'z', 2]`

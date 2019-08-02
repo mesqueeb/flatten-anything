@@ -1,5 +1,6 @@
 import test from 'ava'
 import flatten from '../dist/index.cjs'
+import { flattenObjectProps } from '../dist/index.cjs'
 import copy from 'copy-anything'
 
 test('flatten objects', t => {
@@ -15,6 +16,25 @@ test('flatten objects', t => {
   res = flatten(target)
   t.deepEqual(res, {
     'a': 1,
+    'b.c.d': true,
+    'b.e': 'yes'
+  })
+  t.deepEqual(target, original)
+})
+
+test('flattenObjectProps', t => {
+  let res, target, original
+  target = {
+    a: {d: true},
+    b: {
+      c: {d: true},
+      e: 'yes'
+    }
+  }
+  original = copy(target)
+  res = flattenObjectProps(target, ['b'])
+  t.deepEqual(res, {
+    'a': {d: true},
     'b.c.d': true,
     'b.e': 'yes'
   })

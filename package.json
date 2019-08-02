@@ -1,6 +1,6 @@
 {
   "name": "flatten-anything",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Flatten objects and replace nested props with 'prop.subprop'. A simple and small integration",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "ava": "^1.4.1",
-    "copy-anything": "^1.2.4",
+    "copy-anything": "^1.3.0",
     "rollup-plugin-typescript2": "^0.21.2",
     "typescript": "^3.5.3"
   }

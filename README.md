@@ -85,6 +85,26 @@ flatten(target, untilDepth)
 // }
 ```
 
+### Flatten only certain props
+
+It's possible to only flatten eg. one prop.
+
+```js
+import { flattenObjectProps } from 'flatten-anything'
+
+const target = {
+  appearence: { hair: 'orange' },
+  traits: { strength: 9000 },
+}
+const propsToFlatten = ['traits']
+
+flattenObjectProps(target, propsToFlatten)
+// returns {
+//   appearence: { hair: 'orange' },
+//   traits.strength: 9000,
+// }
+```
+
 ### Treeshaking
 
 Importing `flatten` allows you to use it for both objects _and_ arrays.

@@ -53,6 +53,29 @@ function flattenArray(array) {
     }, []);
 }
 /**
+ * Flattens certain props of an object.
+ *
+ * @export
+ * @param {object} object the object to flatten Eg. `{a: {subA: 1}, b: {subB: 1}}`
+ * @param {string[]} [props=[]] the prop names you want to flatten. Eg. `['a']` will return `{'a.subA': 1, b: {subB: 1}}`
+ * @returns {AnyObject} the flattened object
+ */
+function flattenObjectProps(object, props) {
+    if (props === void 0) { props = []; }
+    return Object.entries(object).reduce(function (carry, _a) {
+        var _b;
+        var key = _a[0], value = _a[1];
+        if (props.includes(key)) {
+            var flatObject = flattenObject((_b = {}, _b[key] = value, _b));
+            Object.assign(carry, flatObject);
+        }
+        else {
+            carry[key] = value;
+        }
+        return carry;
+    }, {});
+}
+/**
  * Flattens an object or array.
  * Object example: `{a: {b: {c: 'd'}}}` to `{'a.b.c': 'd'}`
  * Array example: `[1, ['a', ['z']], 2]` to `[1, 'a', 'z', 2]`
@@ -71,3 +94,4 @@ function index (objectOrArray, untilDepth) {
 exports.default = index;
 exports.flattenArray = flattenArray;
 exports.flattenObject = flattenObject;
+exports.flattenObjectProps = flattenObjectProps;

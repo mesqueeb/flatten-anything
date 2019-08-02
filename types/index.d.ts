@@ -19,6 +19,15 @@ export declare function flattenObject(object: object, untilDepth?: number): AnyO
  */
 export declare function flattenArray(array: any[]): any[];
 /**
+ * Flattens certain props of an object.
+ *
+ * @export
+ * @param {object} object the object to flatten Eg. `{a: {subA: 1}, b: {subB: 1}}`
+ * @param {string[]} [props=[]] the prop names you want to flatten. Eg. `['a']` will return `{'a.subA': 1, b: {subB: 1}}`
+ * @returns {AnyObject} the flattened object
+ */
+export declare function flattenObjectProps(object: object, props?: string[]): AnyObject;
+/**
  * Flattens an object or array.
  * Object example: `{a: {b: {c: 'd'}}}` to `{'a.b.c': 'd'}`
  * Array example: `[1, ['a', ['z']], 2]` to `[1, 'a', 'z', 2]`
