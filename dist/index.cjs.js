@@ -2,7 +2,10 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
 var isWhat = require('is-what');
+var filter = _interopDefault(require('filter-anything'));
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -53,8 +56,6 @@ function __spread() {
     return ar;
 }
 
-// import filter from 'filter-anything'
-var filter = require('filter-anything');
 function retrievePaths(object, path, result, untilDepth) {
     if (!isWhat.isPlainObject(object) ||
         !Object.keys(object).length ||

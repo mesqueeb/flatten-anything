@@ -1,6 +1,6 @@
 import { isPlainObject, isArray, isNumber } from 'is-what'
 // import filter from 'filter-anything'
-const filter = require('filter-anything')
+import filter from 'filter-anything'
 
 type AnyObject = {[key: string]: any}
 

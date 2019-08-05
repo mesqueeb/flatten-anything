@@ -1,4 +1,5 @@
 import { isArray, isPlainObject, isNumber } from 'is-what';
+import filter from 'filter-anything';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -49,8 +50,6 @@ function __spread() {
     return ar;
 }
 
-// import filter from 'filter-anything'
-var filter = require('filter-anything');
 function retrievePaths(object, path, result, untilDepth) {
     if (!isPlainObject(object) ||
         !Object.keys(object).length ||
