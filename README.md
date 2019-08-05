@@ -107,6 +107,26 @@ flattenObjectProps(target, propsToFlatten)
 // }
 ```
 
+You can also point to a nested object property to only flatten specific nested props, but keep the rest as an object!
+
+```js
+const target = {
+  traits: {
+    strength: 9000,
+    range: {min: 8000, max: 10000},
+  },
+}
+
+const propsToFlatten = ['traits.range']
+// only flatten `traits.range` and nothing else.
+
+flattenObjectProps(target, propsToFlatten)
+// returns {
+//   traits: { strength: 9000 },
+//   'traits.range': {min: 8000, max: 10000},
+// }
+```
+
 ### Treeshaking
 
 Importing `flatten` allows you to use it for both objects _and_ arrays.

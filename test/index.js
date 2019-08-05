@@ -39,6 +39,37 @@ test('flattenObjectProps', t => {
     'b.e': 'yes'
   })
   t.deepEqual(target, original)
+  target = {
+    a: {d: true},
+    b: {
+      c: {d: true},
+      e: {f: true},
+    }
+  }
+  original = copy(target)
+  res = flattenObjectProps(target, ['b.c'])
+  t.deepEqual(res, {
+    'a': {d: true},
+    'b.c': {d: true},
+    'b': {e: {f: true}},
+  })
+  t.deepEqual(target, original)
+  // 3
+  target = {
+    appearence: { hair: 'orange' },
+    traits: {
+      strength: 9000,
+      range: {min: 8000, max: 10000},
+    },
+  }
+  original = copy(target)
+  res = flattenObjectProps(target, ['traits.range'])
+  t.deepEqual(res, {
+    appearence: { hair: 'orange' },
+    traits: { strength: 9000 },
+    'traits.range': {min: 8000, max: 10000},
+  })
+  t.deepEqual(target, original)
 })
 
 test('flatten object limit', t => {

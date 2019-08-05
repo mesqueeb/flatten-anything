@@ -1,4 +1,6 @@
 import { isPlainObject, isArray, isNumber } from 'is-what'
+// import filter from 'filter-anything'
+const filter = require('filter-anything')
 
 type AnyObject = {[key: string]: any}
 
@@ -63,15 +65,23 @@ export function flattenArray (array: any[]): any[] {
  * @returns {AnyObject} the flattened object
  */
 export function flattenObjectProps (object: object, props: string[] = []): AnyObject {
-  return Object.entries(object).reduce((carry, [key, value]) => {
-    if (props.includes(key)) {
-      const flatObject = flattenObject({[key]: value})
-      Object.assign(carry, flatObject)
-    } else {
-      carry[key] = value
-    }
-    return carry
+  const flatObject = props.reduce((carry, propPath) => {
+    const firstPropKey = propPath.split('.')[0]
+    const target = { [firstPropKey]: object[firstPropKey] }
+    // calculate a certain depth to flatten or `null` to flatten everything
+    const untilDepth = propPath.split('.').length - 1 || null
+    const flatPart = flattenObject(target, untilDepth)
+    const flatPartFiltered = Object.entries(flatPart)
+      .reduce((carry, [key, value]) => {
+        if (!key.startsWith(propPath)) return carry
+        carry[key] = value
+        return carry
+      }, {})
+    return { ...carry, ...flatPartFiltered }
   }, {})
+  const guard = props
+  const objectWithoutFlatProps = filter(object, [], guard)
+  return { ...objectWithoutFlatProps, ...flatObject }
 }
 
 /**
