@@ -2,10 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
 var isWhat = require('is-what');
-var filter = _interopDefault(require('filter-anything'));
+var filterAnything = require('filter-anything');
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -69,12 +67,10 @@ function retrievePaths(object, path, result, untilDepth) {
         untilDepth--;
     return Object.keys(object).reduce(function (carry, key) {
         var _a;
-        var pathUntilNow = (path)
-            ? path + '.'
-            : '';
+        var pathUntilNow = path ? path + '.' : '';
         var newPath = pathUntilNow + key;
         // last iteration or not
-        var extra = (untilDepth === -1)
+        var extra = untilDepth === -1
             ? (_a = {}, _a[newPath] = object[key], _a) : retrievePaths(object[key], newPath, result, untilDepth);
         return Object.assign(carry, extra);
     }, {});
@@ -85,7 +81,7 @@ function retrievePaths(object, path, result, untilDepth) {
  * @export
  * @param {object} object the object to flatten
  * @param {untilDepth} [number] how deep you want to flatten. 1 for flattening only the first nested prop, and keeping deeper objects as is.
- * @returns {AnyObject} the flattened object
+ * @returns {PlainObject} the flattened object
  */
 function flattenObject(object, untilDepth) {
     var result = {};
@@ -100,8 +96,7 @@ function flattenObject(object, untilDepth) {
  */
 function flattenArray(array) {
     return array.reduce(function (carry, item) {
-        return isWhat.isArray(item)
-            ? __spread(carry, flattenArray(item)) : __spread(carry, [item]);
+        return isWhat.isArray(item) ? __spread(carry, flattenArray(item)) : __spread(carry, [item]);
     }, []);
 }
 /**
@@ -110,7 +105,7 @@ function flattenArray(array) {
  * @export
  * @param {object} object the object to flatten Eg. `{a: {subA: 1}, b: {subB: 1}}`
  * @param {string[]} [props=[]] the prop names you want to flatten. Eg. `['a']` will return `{'a.subA': 1, b: {subB: 1}}`
- * @returns {AnyObject} the flattened object
+ * @returns {PlainObject} the flattened object
  */
 function flattenObjectProps(object, props) {
     if (props === void 0) { props = []; }
@@ -121,19 +116,18 @@ function flattenObjectProps(object, props) {
         // calculate a certain depth to flatten or `null` to flatten everything
         var untilDepth = propPath.split('.').length - 1 || null;
         var flatPart = flattenObject(target, untilDepth);
-        var flatPartFiltered = Object.entries(flatPart)
-            .reduce(function (carry, _a) {
+        var flatPartFiltered = Object.entries(flatPart).reduce(function (carry, _a) {
             var _b = __read(_a, 2), key = _b[0], value = _b[1];
             if (!key.startsWith(propPath))
                 return carry;
             carry[key] = value;
             return carry;
         }, {});
-        return __assign({}, carry, flatPartFiltered);
+        return __assign(__assign({}, carry), flatPartFiltered);
     }, {});
-    var guard = props;
-    var objectWithoutFlatProps = filter(object, [], guard);
-    return __assign({}, objectWithoutFlatProps, flatObject);
+    var omittedProps = props;
+    var objectWithoutFlatProps = filterAnything.omit(object, omittedProps);
+    return __assign(__assign({}, objectWithoutFlatProps), flatObject);
 }
 /**
  * Flattens an object or array.
@@ -143,15 +137,15 @@ function flattenObjectProps(object, props) {
  * @export
  * @param {(object | any[])} objectOrArray the payload to flatten
  * @param {untilDepth} [number] how deep you want to flatten. (currently only works with objects) 1 for flattening only the first nested prop, and keeping deeper objects as is.
- * @returns {(AnyObject | any[])} the flattened result
+ * @returns {(PlainObject | any[])} the flattened result
  */
-function index (objectOrArray, untilDepth) {
+function flatten(objectOrArray, untilDepth) {
     return isWhat.isArray(objectOrArray)
         ? flattenArray(objectOrArray)
         : flattenObject(objectOrArray, untilDepth);
 }
 
-exports.default = index;
+exports.flatten = flatten;
 exports.flattenArray = flattenArray;
 exports.flattenObject = flattenObject;
 exports.flattenObjectProps = flattenObjectProps;

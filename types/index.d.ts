@@ -1,4 +1,4 @@
-declare type AnyObject = {
+declare type PlainObject = {
     [key: string]: any;
 };
 /**
@@ -7,9 +7,9 @@ declare type AnyObject = {
  * @export
  * @param {object} object the object to flatten
  * @param {untilDepth} [number] how deep you want to flatten. 1 for flattening only the first nested prop, and keeping deeper objects as is.
- * @returns {AnyObject} the flattened object
+ * @returns {PlainObject} the flattened object
  */
-export declare function flattenObject(object: object, untilDepth?: number): AnyObject;
+export declare function flattenObject(object: object, untilDepth?: number): PlainObject;
 /**
  * Flattens an array from `[1, ['a', ['z']], 2]` to `[1, 'a', 'z', 2]`
  *
@@ -24,9 +24,9 @@ export declare function flattenArray(array: any[]): any[];
  * @export
  * @param {object} object the object to flatten Eg. `{a: {subA: 1}, b: {subB: 1}}`
  * @param {string[]} [props=[]] the prop names you want to flatten. Eg. `['a']` will return `{'a.subA': 1, b: {subB: 1}}`
- * @returns {AnyObject} the flattened object
+ * @returns {PlainObject} the flattened object
  */
-export declare function flattenObjectProps(object: object, props?: string[]): AnyObject;
+export declare function flattenObjectProps(object: object, props?: string[]): PlainObject;
 /**
  * Flattens an object or array.
  * Object example: `{a: {b: {c: 'd'}}}` to `{'a.b.c': 'd'}`
@@ -35,7 +35,7 @@ export declare function flattenObjectProps(object: object, props?: string[]): An
  * @export
  * @param {(object | any[])} objectOrArray the payload to flatten
  * @param {untilDepth} [number] how deep you want to flatten. (currently only works with objects) 1 for flattening only the first nested prop, and keeping deeper objects as is.
- * @returns {(AnyObject | any[])} the flattened result
+ * @returns {(PlainObject | any[])} the flattened result
  */
-export default function (objectOrArray: object | any[], untilDepth?: number): AnyObject | any[];
+export declare function flatten(objectOrArray: object | any[], untilDepth?: number): PlainObject | any[];
 export {};

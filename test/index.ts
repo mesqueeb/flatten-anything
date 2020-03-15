@@ -1,23 +1,22 @@
 import test from 'ava'
-import flatten from '../dist/index.cjs'
-import { flattenObjectProps } from '../dist/index.cjs'
-import copy from 'copy-anything'
+import { flatten, flattenObjectProps } from '../src/index'
+import { copy } from 'copy-anything'
 
 test('flatten objects', t => {
   let res, target, original
   target = {
     a: 1,
     b: {
-      c: {d: true},
-      e: 'yes'
-    }
+      c: { d: true },
+      e: 'yes',
+    },
   }
   original = copy(target)
   res = flatten(target)
   t.deepEqual(res, {
     'a': 1,
     'b.c.d': true,
-    'b.e': 'yes'
+    'b.e': 'yes',
   })
   t.deepEqual(target, original)
 })
@@ -25,33 +24,33 @@ test('flatten objects', t => {
 test('flattenObjectProps', t => {
   let res, target, original
   target = {
-    a: {d: true},
+    a: { d: true },
     b: {
-      c: {d: true},
-      e: 'yes'
-    }
+      c: { d: true },
+      e: 'yes',
+    },
   }
   original = copy(target)
   res = flattenObjectProps(target, ['b'])
   t.deepEqual(res, {
-    'a': {d: true},
+    'a': { d: true },
     'b.c.d': true,
-    'b.e': 'yes'
+    'b.e': 'yes',
   })
   t.deepEqual(target, original)
   target = {
-    a: {d: true},
+    a: { d: true },
     b: {
-      c: {d: true},
-      e: {f: true},
-    }
+      c: { d: true },
+      e: { f: true },
+    },
   }
   original = copy(target)
   res = flattenObjectProps(target, ['b.c'])
   t.deepEqual(res, {
-    'a': {d: true},
-    'b.c': {d: true},
-    'b': {e: {f: true}},
+    'a': { d: true },
+    'b.c': { d: true },
+    'b': { e: { f: true } },
   })
   t.deepEqual(target, original)
   // 3
@@ -59,15 +58,15 @@ test('flattenObjectProps', t => {
     appearence: { hair: 'orange' },
     traits: {
       strength: 9000,
-      range: {min: 8000, max: 10000},
+      range: { min: 8000, max: 10000 },
     },
   }
   original = copy(target)
   res = flattenObjectProps(target, ['traits.range'])
   t.deepEqual(res, {
-    appearence: { hair: 'orange' },
-    traits: { strength: 9000 },
-    'traits.range': {min: 8000, max: 10000},
+    'appearence': { hair: 'orange' },
+    'traits': { strength: 9000 },
+    'traits.range': { min: 8000, max: 10000 },
   })
   t.deepEqual(target, original)
 })
@@ -77,16 +76,16 @@ test('flatten object limit', t => {
   target = {
     a: 1,
     b: {
-      c: {d: true},
-      e: 'yes'
-    }
+      c: { d: true },
+      e: 'yes',
+    },
   }
   original = copy(target)
   res = flatten(target, 1)
   t.deepEqual(res, {
     'a': 1,
-    'b.c': {d: true},
-    'b.e': 'yes'
+    'b.c': { d: true },
+    'b.e': 'yes',
   })
   t.deepEqual(target, original)
 })
@@ -99,18 +98,18 @@ test('flatten special objects', t => {
   t.deepEqual(res, {})
   t.deepEqual(target, original)
   const date = new Date()
-  target = {a: date}
+  target = { a: date }
   original = copy(target)
   res = flatten(target)
-  t.deepEqual(res, {a: date})
+  t.deepEqual(res, { a: date })
   t.deepEqual(target, original)
 })
 
 test('flatten arrays', t => {
   let res, target, original
-  target = [1, 2, ['a', 'b', ['y', 'z']], 3, [{a: {b: 1}}]]
+  target = [1, 2, ['a', 'b', ['y', 'z']], 3, [{ a: { b: 1 } }]]
   original = copy(target)
   res = flatten(target)
-  t.deepEqual(res, [1, 2, 'a', 'b', 'y', 'z', 3, {a: {b: 1}}])
+  t.deepEqual(res, [1, 2, 'a', 'b', 'y', 'z', 3, { a: { b: 1 } }])
   t.deepEqual(target, original)
 })
