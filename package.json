@@ -1,7 +1,7 @@
 {
   "name": "flatten-anything",
   "sideEffects": false,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Flatten objects and replace nested props with 'prop.subprop'. A simple and small integration",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -52,7 +52,11 @@
     "typescript": "^3.8.3"
   },
   "ava": {
-    "extensions": ["ts"],
-    "require": ["ts-node/register"]
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
   }
 }
