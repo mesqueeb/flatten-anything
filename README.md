@@ -37,9 +37,9 @@ Can be used in combination with [nestify-anything](https://github.com/mesqueeb/n
 ### Flatten objects
 
 ```js
-import flatten from 'flatten-anything'
+import { flatten } from 'flatten-anything'
 
-const target = {name: 'Ho-oh', types: {fire: true, flying: true}}
+const target = { name: 'Ho-oh', types: { fire: true, flying: true } }
 
 flatten(target)
 // returns {
@@ -54,7 +54,7 @@ flatten(target)
 ### Flatten arrays
 
 ```js
-import flatten from 'flatten-anything'
+import { flatten } from 'flatten-anything'
 
 const target = [1, 2, ['a', 'b', ['y', 'z']], 3]
 
@@ -75,7 +75,7 @@ const target = {
     // let's only flatten 1 level until here:
     parts: { wings: true },
     colors: { white: true, blue: true },
-  }
+  },
 }
 const untilDepth = 1
 
@@ -113,7 +113,7 @@ You can also point to a nested object property to only flatten specific nested p
 const target = {
   traits: {
     strength: 9000,
-    range: {min: 8000, max: 10000},
+    range: { min: 8000, max: 10000 },
   },
 }
 
@@ -144,12 +144,14 @@ import { flattenArray } from 'flatten-anything'
 ```js
 const pokemon = {
   name: 'Charizard',
-  types: {dark: true, fire: true, flying: true}
+  types: { dark: true, fire: true, flying: true },
 }
 // we want to delete the `dark` type from this Pokemon
 
 const payload = flatten({
-  types: {dark: Firebase.firestore.FieldValue.delete()}
+  types: { dark: Firebase.firestore.FieldValue.delete() },
 })
-Firebase.firestore().doc('pokemon/charizard').update(payload)
+Firebase.firestore()
+  .doc('pokemon/charizard')
+  .update(payload)
 ```
