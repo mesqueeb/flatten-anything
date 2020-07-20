@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "outDir": "./dist",
     "declaration": true,
     "declarationDir": "./types/",
@@ -8,6 +9,7 @@
     "downlevelIteration": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "test/**/*"
   ]
 }

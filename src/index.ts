@@ -3,7 +3,12 @@ import { omit } from 'filter-anything'
 
 type PlainObject = { [key: string]: any }
 
-function retrievePaths (object: object, path: string, result: object, untilDepth?: number): object {
+function retrievePaths (
+  object: object,
+  path: string | null,
+  result: object,
+  untilDepth?: number
+): object {
   if (
     !isPlainObject(object) ||
     !Object.keys(object).length ||
