@@ -1,8 +1,6 @@
 import { isPlainObject, isArray, isNumber } from 'is-what'
 import { omit } from 'filter-anything'
 
-type PlainObject = { [key: string]: any }
-
 function retrievePaths (
   object: object,
   path: string | null,
@@ -37,9 +35,9 @@ function retrievePaths (
  * @export
  * @param {object} object the object to flatten
  * @param {untilDepth} [number] how deep you want to flatten. 1 for flattening only the first nested prop, and keeping deeper objects as is.
- * @returns {PlainObject} the flattened object
+ * @returns {Record<string, any>} the flattened object
  */
-export function flattenObject (object: object, untilDepth?: number): PlainObject {
+export function flattenObject (object: object, untilDepth?: number): Record<string, any> {
   const result = {}
   return retrievePaths(object, null, result, untilDepth)
 }
@@ -63,9 +61,9 @@ export function flattenArray (array: any[]): any[] {
  * @export
  * @param {object} object the object to flatten Eg. `{a: {subA: 1}, b: {subB: 1}}`
  * @param {string[]} [props=[]] the prop names you want to flatten. Eg. `['a']` will return `{'a.subA': 1, b: {subB: 1}}`
- * @returns {PlainObject} the flattened object
+ * @returns {Record<string, any>} the flattened object
  */
-export function flattenObjectProps (object: object, props: string[] = []): PlainObject {
+export function flattenObjectProps (object: object, props: string[] = []): Record<string, any> {
   const flatObject = props.reduce((carry, propPath) => {
     const firstPropKey = propPath.split('.')[0]
     const target = { [firstPropKey]: object[firstPropKey] }
@@ -92,9 +90,9 @@ export function flattenObjectProps (object: object, props: string[] = []): Plain
  * @export
  * @param {(object | any[])} objectOrArray the payload to flatten
  * @param {untilDepth} [number] how deep you want to flatten. (currently only works with objects) 1 for flattening only the first nested prop, and keeping deeper objects as is.
- * @returns {(PlainObject | any[])} the flattened result
+ * @returns {(Record<string, any> | any[])} the flattened result
  */
-export function flatten (objectOrArray: object | any[], untilDepth?: number): PlainObject | any[] {
+export function flatten (objectOrArray: object | any[], untilDepth?: number): Record<string, any> | any[] {
   return isArray(objectOrArray)
     ? flattenArray(objectOrArray)
     : flattenObject(objectOrArray, untilDepth)
