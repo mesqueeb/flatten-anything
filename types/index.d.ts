@@ -1,15 +1,12 @@
-declare type PlainObject = {
-    [key: string]: any;
-};
 /**
  * Flattens an object from `{a: {b: {c: 'd'}}}` to `{'a.b.c': 'd'}`
  *
  * @export
- * @param {object} object the object to flatten
+ * @param {Record<string, any>} object the object to flatten
  * @param {untilDepth} [number] how deep you want to flatten. 1 for flattening only the first nested prop, and keeping deeper objects as is.
- * @returns {PlainObject} the flattened object
+ * @returns {Record<string, any>} the flattened object
  */
-export declare function flattenObject(object: object, untilDepth?: number): PlainObject;
+export declare function flattenObject(object: Record<string, any>, untilDepth?: number): Record<string, any>;
 /**
  * Flattens an array from `[1, ['a', ['z']], 2]` to `[1, 'a', 'z', 2]`
  *
@@ -22,20 +19,19 @@ export declare function flattenArray(array: any[]): any[];
  * Flattens certain props of an object.
  *
  * @export
- * @param {object} object the object to flatten Eg. `{a: {subA: 1}, b: {subB: 1}}`
+ * @param {Record<string, any>} object the object to flatten Eg. `{a: {subA: 1}, b: {subB: 1}}`
  * @param {string[]} [props=[]] the prop names you want to flatten. Eg. `['a']` will return `{'a.subA': 1, b: {subB: 1}}`
- * @returns {PlainObject} the flattened object
+ * @returns {Record<string, any>} the flattened object
  */
-export declare function flattenObjectProps(object: object, props?: string[]): PlainObject;
+export declare function flattenObjectProps(object: Record<string, any>, props?: string[]): Record<string, any>;
 /**
  * Flattens an object or array.
  * Object example: `{a: {b: {c: 'd'}}}` to `{'a.b.c': 'd'}`
  * Array example: `[1, ['a', ['z']], 2]` to `[1, 'a', 'z', 2]`
  *
  * @export
- * @param {(object | any[])} objectOrArray the payload to flatten
+ * @param {(Record<string, any> | any[])} objectOrArray the payload to flatten
  * @param {untilDepth} [number] how deep you want to flatten. (currently only works with objects) 1 for flattening only the first nested prop, and keeping deeper objects as is.
- * @returns {(PlainObject | any[])} the flattened result
+ * @returns {(Record<string, any> | any[])} the flattened result
  */
-export declare function flatten(objectOrArray: object | any[], untilDepth?: number): PlainObject | any[];
-export {};
+export declare function flatten(objectOrArray: Record<string, any> | any[], untilDepth?: number): Record<string, any> | any[];

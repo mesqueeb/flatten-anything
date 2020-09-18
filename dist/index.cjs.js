@@ -79,9 +79,9 @@ function retrievePaths(object, path, result, untilDepth) {
  * Flattens an object from `{a: {b: {c: 'd'}}}` to `{'a.b.c': 'd'}`
  *
  * @export
- * @param {object} object the object to flatten
+ * @param {Record<string, any>} object the object to flatten
  * @param {untilDepth} [number] how deep you want to flatten. 1 for flattening only the first nested prop, and keeping deeper objects as is.
- * @returns {PlainObject} the flattened object
+ * @returns {Record<string, any>} the flattened object
  */
 function flattenObject(object, untilDepth) {
     var result = {};
@@ -103,9 +103,9 @@ function flattenArray(array) {
  * Flattens certain props of an object.
  *
  * @export
- * @param {object} object the object to flatten Eg. `{a: {subA: 1}, b: {subB: 1}}`
+ * @param {Record<string, any>} object the object to flatten Eg. `{a: {subA: 1}, b: {subB: 1}}`
  * @param {string[]} [props=[]] the prop names you want to flatten. Eg. `['a']` will return `{'a.subA': 1, b: {subB: 1}}`
- * @returns {PlainObject} the flattened object
+ * @returns {Record<string, any>} the flattened object
  */
 function flattenObjectProps(object, props) {
     if (props === void 0) { props = []; }
@@ -135,9 +135,9 @@ function flattenObjectProps(object, props) {
  * Array example: `[1, ['a', ['z']], 2]` to `[1, 'a', 'z', 2]`
  *
  * @export
- * @param {(object | any[])} objectOrArray the payload to flatten
+ * @param {(Record<string, any> | any[])} objectOrArray the payload to flatten
  * @param {untilDepth} [number] how deep you want to flatten. (currently only works with objects) 1 for flattening only the first nested prop, and keeping deeper objects as is.
- * @returns {(PlainObject | any[])} the flattened result
+ * @returns {(Record<string, any> | any[])} the flattened result
  */
 function flatten(objectOrArray, untilDepth) {
     return isWhat.isArray(objectOrArray)
