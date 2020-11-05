@@ -1,7 +1,7 @@
 {
   "name": "flatten-anything",
   "sideEffects": false,
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Flatten objects and replace nested props with 'prop.subprop'. A simple and small integration",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -35,22 +35,23 @@
   },
   "homepage": "https://github.com/mesqueeb/flatten-anything#readme",
   "dependencies": {
-    "filter-anything": "^2.1.5",
-    "is-what": "^3.11.2"
+    "filter-anything": "^2.1.7",
+    "is-what": "^3.11.3"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.1.1",
-    "@typescript-eslint/parser": "^4.1.1",
-    "ava": "^3.12.1",
+    "@typescript-eslint/eslint-plugin": "^4.6.1",
+    "@typescript-eslint/parser": "^4.6.1",
+    "ava": "^3.13.0",
     "copy-anything": "^2.0.1",
-    "eslint": "^7.9.0",
-    "eslint-config-prettier": "^6.11.0",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-tree-shaking": "^1.8.0",
-    "rollup": "^2.27.1",
-    "rollup-plugin-typescript2": "^0.27.2",
-    "tsconfig-paths": "^3.9.0",
+    "prettier": "^2.1.2",
+    "rollup": "^2.33.1",
+    "rollup-plugin-typescript2": "^0.29.0",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.2"
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.0.5"
   },
   "ava": {
     "extensions": [
