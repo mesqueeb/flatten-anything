@@ -10,7 +10,8 @@
     "test": "ava",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "rollup": "rollup -c build/rollup.js",
-    "build": "npm run lint && npm run test && npm run rollup"
+    "build": "npm run lint && npm run test && npm run rollup",
+    "release": "npm run build && np"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "eslint": "^7.12.1",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-tree-shaking": "^1.8.0",
+    "np": "^7.4.0",
     "prettier": "^2.1.2",
     "rollup": "^2.33.1",
     "rollup-plugin-typescript2": "^0.29.0",
@@ -61,5 +63,9 @@
       "tsconfig-paths/register",
       "ts-node/register"
     ]
+  },
+  "np": {
+    "yarn": false,
+    "branch": "production"
   }
 }
