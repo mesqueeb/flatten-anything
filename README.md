@@ -1,5 +1,8 @@
 # Flatten anything 🏏
 
+<a href="https://www.npmjs.com/package/flatten-anything"><img src="https://img.shields.io/npm/v/flatten-anything.svg" alt="Total Downloads"></a>
+<a href="https://www.npmjs.com/package/flatten-anything"><img src="https://img.shields.io/npm/dw/flatten-anything.svg" alt="Latest Stable Version"></a>
+
 ```
 npm i flatten-anything
 ```
