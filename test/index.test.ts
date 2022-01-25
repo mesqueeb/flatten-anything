@@ -12,12 +12,12 @@ test('flatten objects', () => {
   }
   const original = copy(target)
   const res = flatten(target)
-  t.deepEqual(res, {
+  expect(res).toEqual({
     'a': 1,
     'b.c.d': true,
     'b.e': 'yes',
   })
-  t.deepEqual(target, original)
+  expect(target).toEqual(original)
 })
 
 test('flattenObjectProps', () => {
@@ -30,12 +30,12 @@ test('flattenObjectProps', () => {
   }
   const original = copy(target)
   const res = flattenObjectProps(target, ['b'])
-  t.deepEqual(res, {
+  expect(res).toEqual({
     'a': { d: true },
     'b.c.d': true,
     'b.e': 'yes',
   })
-  t.deepEqual(target, original)
+  expect(target).toEqual(original)
 })
 test('flattenObjectProps 2', () => {
   const target = {
@@ -47,12 +47,12 @@ test('flattenObjectProps 2', () => {
   }
   const original = copy(target)
   const res = flattenObjectProps(target, ['b.c'])
-  t.deepEqual(res, {
+  expect(res).toEqual({
     'a': { d: true },
     'b.c': { d: true },
     'b': { e: { f: true } },
   })
-  t.deepEqual(target, original)
+  expect(target).toEqual(original)
 })
 test('flattenObjectProps 3', () => {
   // 3
@@ -65,12 +65,12 @@ test('flattenObjectProps 3', () => {
   }
   const original = copy(target)
   const res = flattenObjectProps(target, ['traits.range'])
-  t.deepEqual(res, {
+  expect(res).toEqual({
     'appearence': { hair: 'orange' },
     'traits': { strength: 9000 },
     'traits.range': { min: 8000, max: 10000 },
   })
-  t.deepEqual(target, original)
+  expect(target).toEqual(original)
 })
 
 test('flatten object limit', () => {
@@ -83,20 +83,20 @@ test('flatten object limit', () => {
   }
   const original = copy(target)
   const res = flatten(target, 1)
-  t.deepEqual(res, {
+  expect(res).toEqual({
     'a': 1,
     'b.c': { d: true },
     'b.e': 'yes',
   })
-  t.deepEqual(target, original)
+  expect(target).toEqual(original)
 })
 
 test('flatten special objects', () => {
   const target = {}
   const original = copy(target)
   const res = flatten(target)
-  t.deepEqual(res, {})
-  t.deepEqual(target, original)
+  expect(res).toEqual({})
+  expect(target).toEqual(original)
 })
 
 test('flatten special objects 2', () => {
@@ -104,14 +104,14 @@ test('flatten special objects 2', () => {
   const target = { a: date }
   const original = copy(target)
   const res = flatten(target)
-  t.deepEqual(res, { a: date })
-  t.deepEqual(target, original)
+  expect(res).toEqual({ a: date })
+  expect(target).toEqual(original)
 })
 
 test('flatten arrays', () => {
   const target = [1, 2, ['a', 'b', ['y', 'z']], 3, [{ a: { b: 1 } }]]
   const original = copy(target)
   const res = flatten(target)
-  t.deepEqual(res, [1, 2, 'a', 'b', 'y', 'z', 3, { a: { b: 1 } }])
-  t.deepEqual(target, original)
+  expect(res).toEqual([1, 2, 'a', 'b', 'y', 'z', 3, { a: { b: 1 } }])
+  expect(target).toEqual(original)
 })

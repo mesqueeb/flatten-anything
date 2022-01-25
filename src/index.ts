@@ -64,13 +64,13 @@ export function flattenArray (array: any[]): any[] {
  * @returns {Record<string, any>} the flattened object
  */
 export function flattenObjectProps (object: Record<string, any>, props: string[] = []): Record<string, any> {
-  const flatObject = props.reduce((carry, propPath) => {
+  const flatObject = props.reduce<Record<string, any>>((carry, propPath) => {
     const firstPropKey = propPath.split('.')[0]
     const target = { [firstPropKey]: object[firstPropKey] }
     // calculate a certain depth to flatten or `null` to flatten everything
-    const untilDepth = propPath.split('.').length - 1 || null
+    const untilDepth = propPath.split('.').length - 1 || undefined
     const flatPart = flattenObject(target, untilDepth)
-    const flatPartFiltered = Object.entries(flatPart).reduce((carry, [key, value]) => {
+    const flatPartFiltered = Object.entries(flatPart).reduce<Record<string, any>>((carry, [key, value]) => {
       if (!key.startsWith(propPath)) return carry
       carry[key] = value
       return carry
