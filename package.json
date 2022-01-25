@@ -1,7 +1,7 @@
 {
   "name": "flatten-anything",
   "sideEffects": false,
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Flatten objects and replace nested props with 'prop.subprop'. A simple and small integration",
   "module": "./dist/index.es.js",
   "main": "./dist/index.cjs",
