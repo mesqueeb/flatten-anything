@@ -1,17 +1,31 @@
 {
   "name": "flatten-anything",
   "sideEffects": false,
+  "type": "module",
   "version": "2.0.4",
   "description": "Flatten objects and replace nested props with 'prop.subprop'. A simple and small integration",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "types": "types/index.d.ts",
+  "module": "./dist/index.es.js",
+  "main": "./dist/index.cjs",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=12.13",
+    "npm": ">=7"
+  },
   "scripts": {
-    "test": "ava",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "rollup": "rollup -c build/rollup.js",
-    "build": "npm run lint && npm run test && npm run rollup",
-    "release": "npm run build && np"
+    "test": "vitest run",
+    "lint": "tsc --noEmit ./src/index.ts && eslint ./src --ext .ts",
+    "build": "rollup -c ./scripts/build.js",
+    "release": "npm run lint && del dist && npm run build && np"
   },
   "repository": {
     "type": "git",
@@ -37,36 +51,53 @@
   },
   "homepage": "https://github.com/mesqueeb/flatten-anything#readme",
   "dependencies": {
-    "filter-anything": "^2.1.7",
-    "is-what": "^3.11.3"
+    "filter-anything": "^2.2.1",
+    "is-what": "^4.1.1"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.6.1",
-    "@typescript-eslint/parser": "^4.6.1",
-    "ava": "^3.13.0",
-    "copy-anything": "^2.0.1",
-    "eslint": "^7.12.1",
-    "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-tree-shaking": "^1.8.0",
-    "np": "^7.4.0",
-    "prettier": "^2.1.2",
-    "rollup": "^2.33.1",
-    "rollup-plugin-typescript2": "^0.29.0",
-    "ts-node": "^9.0.0",
-    "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.0.5"
-  },
-  "ava": {
-    "extensions": [
-      "ts"
-    ],
-    "require": [
-      "tsconfig-paths/register",
-      "ts-node/register"
-    ]
+    "@typescript-eslint/eslint-plugin": "^5.10.1",
+    "@typescript-eslint/parser": "^5.10.1",
+    "copy-anything": "^2.0.3",
+    "del-cli": "^4.0.1",
+    "eslint": "^8.7.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-tree-shaking": "^1.10.0",
+    "np": "^7.6.0",
+    "prettier": "^2.5.1",
+    "rollup": "^2.66.0",
+    "rollup-plugin-typescript2": "^0.31.1",
+    "typescript": "^4.5.5",
+    "vitest": "^0.2.1"
   },
   "np": {
     "yarn": false,
     "branch": "production"
+  },
+  "eslintConfig": {
+    "ignorePatterns": [
+      "node_modules",
+      "dist",
+      "scripts",
+      "test"
+    ],
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint",
+      "tree-shaking"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
+      "prettier"
+    ],
+    "rules": {
+      "@typescript-eslint/no-empty-function": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/ban-ts-ignore": "off",
+      "tree-shaking/no-side-effects-in-initialization": "error",
+      "@typescript-eslint/ban-ts-comment": "off"
+    }
   }
 }

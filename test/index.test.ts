@@ -1,8 +1,8 @@
-import test from 'ava'
+import { test, expect } from 'vitest'
 import { flatten, flattenObjectProps } from '../src/index'
 import { copy } from 'copy-anything'
 
-test('flatten objects', t => {
+test('flatten objects', () => {
   const target = {
     a: 1,
     b: {
@@ -20,7 +20,7 @@ test('flatten objects', t => {
   t.deepEqual(target, original)
 })
 
-test('flattenObjectProps', t => {
+test('flattenObjectProps', () => {
   const target = {
     a: { d: true },
     b: {
@@ -37,7 +37,7 @@ test('flattenObjectProps', t => {
   })
   t.deepEqual(target, original)
 })
-test('flattenObjectProps 2', t => {
+test('flattenObjectProps 2', () => {
   const target = {
     a: { d: true },
     b: {
@@ -54,7 +54,7 @@ test('flattenObjectProps 2', t => {
   })
   t.deepEqual(target, original)
 })
-test('flattenObjectProps 3', t => {
+test('flattenObjectProps 3', () => {
   // 3
   const target = {
     appearence: { hair: 'orange' },
@@ -73,7 +73,7 @@ test('flattenObjectProps 3', t => {
   t.deepEqual(target, original)
 })
 
-test('flatten object limit', t => {
+test('flatten object limit', () => {
   const target = {
     a: 1,
     b: {
@@ -91,7 +91,7 @@ test('flatten object limit', t => {
   t.deepEqual(target, original)
 })
 
-test('flatten special objects', t => {
+test('flatten special objects', () => {
   const target = {}
   const original = copy(target)
   const res = flatten(target)
@@ -99,7 +99,7 @@ test('flatten special objects', t => {
   t.deepEqual(target, original)
 })
 
-test('flatten special objects 2', t => {
+test('flatten special objects 2', () => {
   const date = new Date()
   const target = { a: date }
   const original = copy(target)
@@ -108,7 +108,7 @@ test('flatten special objects 2', t => {
   t.deepEqual(target, original)
 })
 
-test('flatten arrays', t => {
+test('flatten arrays', () => {
   const target = [1, 2, ['a', 'b', ['y', 'z']], 3, [{ a: { b: 1 } }]]
   const original = copy(target)
   const res = flatten(target)
