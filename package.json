@@ -50,23 +50,23 @@
   },
   "homepage": "https://github.com/mesqueeb/flatten-anything#readme",
   "dependencies": {
-    "filter-anything": "^2.2.1",
-    "is-what": "^4.1.1"
+    "filter-anything": "^2.2.4",
+    "is-what": "^4.1.6"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
-    "copy-anything": "^2.0.3",
+    "copy-anything": "^2.0.6",
     "del-cli": "^4.0.1",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-tree-shaking": "^1.10.0",
     "np": "^7.6.0",
     "prettier": "^2.5.1",
-    "rollup": "^2.66.0",
+    "rollup": "^2.66.1",
     "rollup-plugin-typescript2": "^0.31.1",
     "typescript": "^4.5.5",
-    "vitest": "^0.2.1"
+    "vitest": "^0.2.3"
   },
   "np": {
     "yarn": false,
