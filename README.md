@@ -21,16 +21,20 @@ flatten-anything will flatten objects and their nested properties, but only as l
 Very usable for creating a payload for **Firebase Firestore** `update` function, which only accepts flat objects! With Firestore for example `Firebase.firestore.FieldValue.delete()` does not break.
 
 Can be used in combination with [nestify-anything](https://github.com/mesqueeb/nestify-anything), which does the exact opposite of this one! 😉
+## Meet the family (more tiny utils with TS support)
 
-## Meet the family
-
-- [flatten-anything 🏏](https://github.com/mesqueeb/flatten-anything)
-- [merge-anything 🥡](https://github.com/mesqueeb/merge-anything)
-- [filter-anything ⚔️](https://github.com/mesqueeb/filter-anything)
-- [find-and-replace-anything 🎣](https://github.com/mesqueeb/find-and-replace-anything)
-- [compare-anything 🛰](https://github.com/mesqueeb/compare-anything)
-- [copy-anything 🎭](https://github.com/mesqueeb/copy-anything)
 - [is-what 🙉](https://github.com/mesqueeb/is-what)
+- [is-where 🙈](https://github.com/mesqueeb/is-where)
+- [merge-anything 🥡](https://github.com/mesqueeb/merge-anything)
+- [check-anything 👁](https://github.com/mesqueeb/check-anything)
+- [remove-anything ✂️](https://github.com/mesqueeb/remove-anything)
+- [getorset-anything 🐊](https://github.com/mesqueeb/getorset-anything)
+- [map-anything 🗺](https://github.com/mesqueeb/map-anything)
+- [filter-anything ⚔️](https://github.com/mesqueeb/filter-anything)
+- [copy-anything 🎭](https://github.com/mesqueeb/copy-anything)
+- [case-anything 🐫](https://github.com/mesqueeb/case-anything)
+- [flatten-anything 🏏](https://github.com/mesqueeb/flatten-anything)
+- [nestify-anything 🧅](https://github.com/mesqueeb/nestify-anything)
 
 ## Usage
 
