@@ -1,16 +1,16 @@
-import { isPlainObject, isArray, isNumber } from 'is-what'
 import { omit } from 'filter-anything'
+import { isArray, isNumber, isPlainObject } from 'is-what'
 
-function retrievePaths (
-  object: Record<string, any>,
+function retrievePaths(
+  object: { [key in string]: any },
   path: string | null,
-  result: Record<string, any>,
-  untilDepth?: number
-): Record<string, any> {
+  result: { [key in string]: any },
+  untilDepth?: number,
+): { [key in string]: any } {
   if (
     !isPlainObject(object) ||
     !Object.keys(object).length ||
-    object.methodName === 'FieldValue.serverTimestamp'
+    `${object['methodName']}`?.includes('FieldValue')
   ) {
     if (!path) return object
     result[path] = object
@@ -24,7 +24,7 @@ function retrievePaths (
     const extra =
       untilDepth === -1
         ? { [newPath]: object[key] }
-        : retrievePaths(object[key], newPath, result, untilDepth)
+        : retrievePaths(object[key] as any, newPath, result, untilDepth)
     return Object.assign(carry, extra)
   }, {})
 }
@@ -33,11 +33,14 @@ function retrievePaths (
  * Flattens an object from `{a: {b: {c: 'd'}}}` to `{'a.b.c': 'd'}`
  *
  * @export
- * @param {Record<string, any>} object the object to flatten
- * @param {untilDepth} [number] how deep you want to flatten. 1 for flattening only the first nested prop, and keeping deeper objects as is.
- * @returns {Record<string, any>} the flattened object
+ * @param object the object to flatten
+ * @param [number] how deep you want to flatten. 1 for flattening only the first nested prop, and keeping deeper objects as is.
+ * @returns the flattened object
  */
-export function flattenObject (object: Record<string, any>, untilDepth?: number): Record<string, any> {
+export function flattenObject(
+  object: { [key in string]: any },
+  untilDepth?: number,
+): { [key in string]: any } {
   const result = {}
   return retrievePaths(object, null, result, untilDepth)
 }
@@ -46,10 +49,10 @@ export function flattenObject (object: Record<string, any>, untilDepth?: number)
  * Flattens an array from `[1, ['a', ['z']], 2]` to `[1, 'a', 'z', 2]`
  *
  * @export
- * @param {any[]} array the array to flatten
- * @returns {any[]} the flattened array
+ * @param array the array to flatten
+ * @returns the flattened array
  */
-export function flattenArray (array: any[]): any[] {
+export function flattenArray(array: any[]): any[] {
   return array.reduce((carry, item) => {
     return isArray(item) ? [...carry, ...flattenArray(item)] : [...carry, item]
   }, [])
@@ -59,22 +62,28 @@ export function flattenArray (array: any[]): any[] {
  * Flattens certain props of an object.
  *
  * @export
- * @param {Record<string, any>} object the object to flatten Eg. `{a: {subA: 1}, b: {subB: 1}}`
- * @param {string[]} [props=[]] the prop names you want to flatten. Eg. `['a']` will return `{'a.subA': 1, b: {subB: 1}}`
- * @returns {Record<string, any>} the flattened object
+ * @param object the object to flatten Eg. `{a: {subA: 1}, b: {subB: 1}}`
+ * @param [props=[]] the prop names you want to flatten. Eg. `['a']` will return `{'a.subA': 1, b: {subB: 1}}`
+ * @returns the flattened object
  */
-export function flattenObjectProps (object: Record<string, any>, props: string[] = []): Record<string, any> {
-  const flatObject = props.reduce<Record<string, any>>((carry, propPath) => {
-    const firstPropKey = propPath.split('.')[0]
-    const target = { [firstPropKey]: object[firstPropKey] }
+export function flattenObjectProps(
+  object: { [key in string]: any },
+  props: string[] = [],
+): { [key in string]: any } {
+  const flatObject = props.reduce<{ [key in string]: any }>((carry, propPath) => {
+    const firstPropKey = propPath.split('.')[0] ?? ''
+    const target = { [`${firstPropKey}`]: object[firstPropKey] }
     // calculate a certain depth to flatten or `null` to flatten everything
     const untilDepth = propPath.split('.').length - 1 || undefined
     const flatPart = flattenObject(target, untilDepth)
-    const flatPartFiltered = Object.entries(flatPart).reduce<Record<string, any>>((carry, [key, value]) => {
-      if (!key.startsWith(propPath)) return carry
-      carry[key] = value
-      return carry
-    }, {})
+    const flatPartFiltered = Object.entries(flatPart).reduce<{ [key in string]: any }>(
+      (carry, [key, value]) => {
+        if (!key.startsWith(propPath)) return carry
+        carry[key] = value
+        return carry
+      },
+      {},
+    )
     return { ...carry, ...flatPartFiltered }
   }, {})
   const omittedProps = props
@@ -88,11 +97,14 @@ export function flattenObjectProps (object: Record<string, any>, props: string[]
  * Array example: `[1, ['a', ['z']], 2]` to `[1, 'a', 'z', 2]`
  *
  * @export
- * @param {(Record<string, any> | any[])} objectOrArray the payload to flatten
- * @param {untilDepth} [number] how deep you want to flatten. (currently only works with objects) 1 for flattening only the first nested prop, and keeping deeper objects as is.
- * @returns {(Record<string, any> | any[])} the flattened result
+ * @param objectOrArray the payload to flatten
+ * @param [number] how deep you want to flatten. (currently only works with objects) 1 for flattening only the first nested prop, and keeping deeper objects as is.
+ * @returns the flattened result
  */
-export function flatten (objectOrArray: Record<string, any> | any[], untilDepth?: number): Record<string, any> | any[] {
+export function flatten(
+  objectOrArray: { [key in string]: any } | any[],
+  untilDepth?: number,
+): { [key in string]: any } | any[] {
   return isArray(objectOrArray)
     ? flattenArray(objectOrArray)
     : flattenObject(objectOrArray, untilDepth)

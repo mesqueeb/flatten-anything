@@ -1,6 +1,6 @@
-import { test, expect } from 'vitest'
-import { flatten, flattenObjectProps } from '../src/index'
 import { copy } from 'copy-anything'
+import { expect, test } from 'vitest'
+import { flatten, flattenObjectProps } from '../src/index.js'
 
 test('flatten objects', () => {
   const target = {
