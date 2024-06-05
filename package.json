@@ -1,6 +1,6 @@
 {
   "name": "flatten-anything",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Flatten objects and replace nested props with 'prop.subprop'. A simple and small integration",
   "type": "module",
   "sideEffects": false,
