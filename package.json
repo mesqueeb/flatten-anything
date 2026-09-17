@@ -14,19 +14,19 @@
     "test": "vitest run",
     "lint": "tsc --noEmit && eslint ./src",
     "build": "del-cli dist && tsc",
-    "release": "npm run lint && npm run build && np"
+    "release": "pnpm run lint && pnpm run build && np"
   },
   "dependencies": {
-    "filter-anything": "^4.0.2",
-    "is-what": "^5.2.0"
+    "filter-anything": "^4.0.3",
+    "is-what": "^5.5.0"
   },
   "devDependencies": {
-    "@cycraft/eslint": "^0.4.3",
+    "@cycraft/eslint": "^0.4.4",
     "@cycraft/tsconfig": "^0.1.2",
-    "copy-anything": "^4.0.2",
-    "del-cli": "^6.0.0",
+    "copy-anything": "^4.1.0",
+    "del-cli": "^7.0.0",
     "np": "^12.1.1",
-    "vitest": "^3.0.6"
+    "vitest": "^5.0.1"
   },
   "files": [
     "dist"
@@ -51,5 +51,6 @@
     "url": "https://github.com/mesqueeb/flatten-anything.git"
   },
   "homepage": "https://github.com/mesqueeb/flatten-anything#readme",
-  "bugs": "https://github.com/mesqueeb/flatten-anything/issues"
+  "bugs": "https://github.com/mesqueeb/flatten-anything/issues",
+  "packageManager": "pnpm@11.27.0"
 }
