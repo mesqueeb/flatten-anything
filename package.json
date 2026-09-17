@@ -52,5 +52,5 @@
   },
   "homepage": "https://github.com/mesqueeb/flatten-anything#readme",
   "bugs": "https://github.com/mesqueeb/flatten-anything/issues",
-  "packageManager": "pnpm@11.27.0"
+  "packageManager": "pnpm@12.4.2"
 }
