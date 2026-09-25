@@ -26,6 +26,8 @@
     "bumpp": "^12.3.0",
     "copy-anything": "^4.1.0",
     "del-cli": "^7.0.0",
+    "eslint": "^9.20.1",
+    "typescript": "^5.9.3",
     "vitest": "^5.0.1"
   },
   "files": [
