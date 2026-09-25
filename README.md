@@ -21,6 +21,7 @@ flatten-anything will flatten objects and their nested properties, but only as l
 Very usable for creating a payload for **Firebase Firestore** `update` function, which only accepts flat objects! With Firestore for example `Firebase.firestore.FieldValue.delete()` does not break.
 
 Can be used in combination with [nestify-anything](https://github.com/mesqueeb/nestify-anything), which does the exact opposite of this one! 😉
+
 ## Meet the family (more tiny utils with TS support)
 
 - [is-what 🙉](https://github.com/mesqueeb/is-what)
@@ -158,7 +159,5 @@ const pokemon = {
 const payload = flatten({
   types: { dark: Firebase.firestore.FieldValue.delete() },
 })
-Firebase.firestore()
-  .doc('pokemon/charizard')
-  .update(payload)
+Firebase.firestore().doc('pokemon/charizard').update(payload)
 ```
